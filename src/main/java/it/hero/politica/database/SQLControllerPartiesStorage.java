@@ -106,4 +106,17 @@ public class SQLControllerPartiesStorage {
         }
         return false;
     }
+    public String getColor(String party){
+        PreparedStatement ps;
+        try{
+            ps = plugin.sql.getConnection().prepareStatement("SELECT color FROM parties_storage WHERE party=?");
+            ps.setString(1, party);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next())
+                return rs.getString(1).toUpperCase();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

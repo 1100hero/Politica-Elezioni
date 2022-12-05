@@ -2,7 +2,9 @@ package it.hero.politica.commands;
 
 import it.hero.politica.Politica;
 import it.hero.politica.database.SQLControllerParties;
+import it.hero.politica.database.SQLControllerPartiesStorage;
 import it.hero.politica.datatype.ItemData;
+import it.hero.politica.enums.DataBlockID;
 import it.hero.politica.utils.ColorAPI;
 import it.hero.politica.utils.CooldownAPI;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -76,7 +78,8 @@ public class TesseraPartito implements CommandExecutor {
                         .findFirst();
                 ItemData item = new ItemData(new ItemStack(Material.STICK));
                 plugin.getConfig().getStringList("partito.item.lore").forEach(s -> ColorAPI.color(s).replace("%name%", target.getName()));
-                item.setItem(161, ColorAPI.color(plugin.getConfig().getString("partito.item.name"))
+                SQLControllerPartiesStorage partiesStorage = new SQLControllerPartiesStorage(plugin);
+                item.setItem(DataBlockID.valueOf(partiesStorage.getColor(controller.getPlayerPartyName(player))).getValue(), ColorAPI.color(plugin.getConfig().getString("partito.item.name"))
                                 .replace("%partito%", controller.getPlayerPartyName(player)),
                         plugin.getConfig().getStringList("partito.item.lore"));
                 if(!optionalInt.isPresent()){
