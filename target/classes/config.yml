@@ -57,8 +57,28 @@ partito:
   electionStarted: "&cNon puoi creare un partito mentre le elezioni si stanno svolgendo."
   colorNotExists: "&cIl colore scelto non esiste"
   orientationNotExists: "&cL'orientamento scelto non esiste."
+  created: "&aHai creato il partito %partito%"
   notOnlineOrExists: "&cIl leader inserito non è online o non esiste."
   manageWronghLength: "&cIl comando inserito non e' corretto."
+  notOnline: "&cIl giocatore &e%name% &cnon è in città"
+  #- Permesso: 'elezioni.partito.tessera'
+  noPermissionTesseraPlayer: "&cNon hai il permesso di eseguire questo comando."
+  sentRequest: "&aHai mandato la richiesta di tesseramento a %name%"
+  cooldownRequest: 30
+  timeLeft: "&cDevi aspettare altri &e%time%s &cprima di eseguire nuovamente questo comando."
+  targetMsg: "&aSei stato invitato ad entrare nel partito &e%partito%"
+  yesMessage: "&8(&aSi&8)"
+  yesHoverMessage: "&bClicca per entrare in &e%partito%"
+  noMessage: "&8(&4No&8)"
+  noHoverMessage: "&cClicca per rifiutare l'invito a &e%partito%"
+  acceptedTargetMsg: "&aSei entrato nel partito &e%partito%"
+  acceptedPlayerMsg: "&e%name% è entrato nel partito"
+  refusedTargetMsg: "&cHai rifiutato di entrare in &e%partito%"
+  refusedPlayerMsg: "&e%name% &cha rifiutato di entrare nel partito."
+  item:
+    name: "&atessera &e%partito%"
+    lore:
+      - "§7Tessera ufficiale del partito! Di %name%"
 voti:
   alreadyVoted: "&aHai già votato, non puoi votare nuovamente."
   voted: "&aHai votato con successo &e%partito%"

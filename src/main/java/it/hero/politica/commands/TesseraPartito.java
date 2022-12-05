@@ -57,10 +57,10 @@ public class TesseraPartito implements CommandExecutor {
                 player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.sentRequest")).replace("%name%", target.getName())));
                 TextComponent yesMessage = new TextComponent(ColorAPI.color(plugin.getConfig().getString("partito.yesMessage")));
                 yesMessage.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.yesHoverMessage")).replace("%partito%", controller.getPlayerPartyName(player))))));
-                yesMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/politica tesseramento accept"));
+                yesMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/partito tesseramento accept"));
                 TextComponent noMessage = new TextComponent(ColorAPI.color("partito.noMessage"));
                 noMessage.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(ColorAPI.color(plugin.getConfig().getString("partito.noHoverMessage")).replace("%partito%", controller.getPlayerPartyName(player)))));
-                noMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/politica tesseramento reject"));
+                noMessage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/partito tesseramento reject"));
                 target.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.targetMsg")).replace("%partito%", controller.getPlayerPartyName(player)));
                 TextComponent space = new TextComponent(" ");
                 target.spigot().sendMessage(yesMessage,space,noMessage);
@@ -69,9 +69,11 @@ public class TesseraPartito implements CommandExecutor {
             return true;
         }else if(args[0].equalsIgnoreCase("tesseramento")){
             if(args[1].equalsIgnoreCase("accept")){
-                target.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("acceptedTargetMsg")).replace("%partito%", controller.getPlayerPartyName(player))));
-                player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("acceptedPlayerMsg")).replace("%name%", target.getName())));
-                controller.insertPlayer(target, controller.getPlayerPartyName(player));
+                // .replace("%partito%", controller.getPlayerPartyName(player)
+                // .replace("%name%", target.getName()
+                //target.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.acceptedTargetMsg"))));
+                //player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.acceptedPlayerMsg"))));
+                controller.insertPlayer(target.getPlayer(), controller.getPlayerPartyName(player));
                 List<ItemStack> items = Arrays.asList(target.getInventory().getStorageContents());
                 OptionalInt optionalInt = IntStream.range(0, items.size()).
                         filter(s -> items.get(s) == null)
@@ -88,8 +90,8 @@ public class TesseraPartito implements CommandExecutor {
                 }
                 player.getInventory().setItem(optionalInt.getAsInt(), item.getItem());
             }else if(args[1].equalsIgnoreCase("reject")){
-                target.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("refusedTargetMsg")).replace("%partito%", controller.getPlayerPartyName(player))));
-                player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("refusedPlayerMsg")).replace("%name%", target.getName())));
+                target.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.refusedTargetMsg")).replace("%partito%", controller.getPlayerPartyName(player))));
+                player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.refusedPlayerMsg")).replace("%name%", target.getName())));
             }else{
                 target.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.wrongLength")));
             }
