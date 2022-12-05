@@ -1,0 +1,7 @@
+it\hero\politica\commands\Elezioni.class
+it\hero\politica\utils\Gui.class
+it\hero\politica\utils\ItemData.class
+it\hero\politica\utils\HologramLoader.class
+it\hero\politica\commands\TesseraElettorale.class
+it\hero\politica\commands\CreaPartito.class
+it\hero\politica\Politica.class

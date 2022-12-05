@@ -1,0 +1,20 @@
+name: Politica
+version: '${project.version}'
+main: it.hero.politica.Politica
+api-version: 1.16
+softdepend: [HolographicDisplays,PlaceholderAPI,LuckPerms,ProtocolLib]
+authors: [ 1100hero ]
+description: Plugin creato su commissione per Bisignano, permette di gestire la politica del server.
+commands:
+  elezioni:
+    description: "Permette di iniziare o terminare le elezioni."
+  tessera:
+    description: "Permette di givvare una tessera elettorale in inventrario ad un giocatore."
+  politica:
+    description: "Permette di ricaricare il config della politica."
+  creapartito:
+    description: "Permette di creare un partito."
+  givevoteblock:
+    description: "Permette di givvare il blocco dove effettuare le votazioni."
+  partito:
+    description: "Permette di eseguire i comandi del partito."

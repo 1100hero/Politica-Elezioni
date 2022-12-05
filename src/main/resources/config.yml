@@ -1,0 +1,113 @@
+db:
+  username: "u150_P7JCD7MGc1"
+  password: "4Oagk3c@kkJ7@9fjrfx^7kiK"
+  database: "s150_Login"
+  host: "178.218.144.227"
+  port: 3306
+elezioni:
+  consoleInstance: "La console non puo' eseguire questo comando."
+  wrongLength: "&cUtilizzo del comando sbagliato, usa /elezioni <inizia/termina>"
+  #- Permesso: 'elezioni.inizia'
+  iniziaNoPermission: "&cNon hai il permesso per eseguire questo comando."
+  notParties: "&cNon esistono partiti pertanto non si possono avviare le elezioni."
+  #- IMPORTANTE: NON MODIFICARE IL VALORE DI DATA
+  data: false
+  alreadyStarted: "&cHai già iniziato le elezioni."
+  #- Aggiungi messaggi al broadcast mettendo '-' seguito dal messaggio es. - "Test"
+  iniziaBroadcast:
+  - "&a&lElezioni • &7Le elezioni sono ufficialmente &ainiziate&7!"
+  - "&7Recati in uno dei seggi e fai la scelta che più ti ispira."
+  terminaNoPermission: "&cNon hai il permesso di eseguire questo comando."
+  notStarted: "&cLe elezioni non sono ancora, iniziate."
+  terminaBroadcast:
+  - "&a&lElezioni • &7Le elezioni sono state terminate!"
+  - "&7A breve verrà eletto un nuovo capo di stato."
+  #- Messaggio inviato solo a chi ha il permeso 'elezioni.percentage'
+  electionPercentage: "&aSono stati registrati &e%voti% &avoti"
+  Hologram:
+    position:
+      x: -39
+      y: 72
+      z: -186
+      world: "world"
+    text:
+      - "&eCi sono attualmente &6&l%voti% &evoti registrati!"
+  block: "OBSERVER"
+electoralID:
+  consoleInstance: "La console non puo' eseguire questo comando."
+  wrongLength: "&cIl comando inserito non esista, usa /tessera give <nome>"
+  #- Permesso: 'elezioni.tessera'
+  noPermission: "&cNon hai il permesso di eseguire questo comando."
+  noOnlineTarget: "&cIl giocatore &e%name% &cnon è in città."
+  #- Tempo espresso in secondi (s)
+  timer: 20
+  timeToWait: "&cDevi aspettare altri &e%time%s &cprima di eseguire nuovamente questo comando."
+  ID:
+    #- Nella lore, per utilizzare i colori usa, § invece di &.
+    name: "&aTessera elettorale di %name%"
+    lore:
+      - "§7Genere %genere%"
+      - "§7Registrata il %registration_date%"
+partito:
+  consoleInstance: "La console non puo' eseguire questo comando.'"
+  #- Permesso: 'elezioni.partito.crea'
+  creaNoPermission: "&cNon hai il permesso di eseguire questo comando."
+  alreadyInParty: "&cTi trovi già nel partito %partito%"
+  creaWrongLength: "&cComando errato, esegui /creapartito (nome) (colore) (orientamento) (leader)"
+  electionStarted: "&cNon puoi creare un partito mentre le elezioni si stanno svolgendo."
+  colorNotExists: "&cIl colore scelto non esiste"
+  orientationNotExists: "&cL'orientamento scelto non esiste."
+  created: "&aHai creato il partito %partito%"
+  notOnlineOrExists: "&cIl leader inserito non è online o non esiste."
+  manageWronghLength: "&cIl comando inserito non e' corretto."
+  notOnline: "&cIl giocatore &e%name% &cnon è in città"
+  #- Permesso: 'elezioni.partito.tessera'
+  noPermissionTesseraPlayer: "&cNon hai il permesso di eseguire questo comando."
+  sentRequest: "&aHai mandato la richiesta di tesseramento a %name%"
+  cooldownRequest: 30
+  timeLeft: "&cDevi aspettare altri &e%time%s &cprima di eseguire nuovamente questo comando."
+  targetMsg: "&aSei stato invitato ad entrare nel partito &e%partito%"
+  yesMessage: "&8(&aSi&8)"
+  yesHoverMessage: "&bClicca per entrare in &e%partito%"
+  noMessage: "&8(&4No&8)"
+  noHoverMessage: "&cClicca per rifiutare l'invito a &e%partito%"
+  acceptedTargetMsg: "&aSei entrato nel partito &e%partito%"
+  acceptedPlayerMsg: "&e%name% è entrato nel partito"
+  refusedTargetMsg: "&cHai rifiutato di entrare in &e%partito%"
+  refusedPlayerMsg: "&e%name% &cha rifiutato di entrare nel partito."
+  item:
+    name: "&atessera &e%partito%"
+    lore:
+      - "§7Tessera ufficiale del partito! Di %name%"
+voti:
+  alreadyVoted: "&aHai già votato, non puoi votare nuovamente."
+  voted: "&aHai votato con successo &e%partito%"
+  votedSound: "ENTITY_PLAYER_LEVELUP"
+  volume: 4
+  pitch: 2
+  gui:
+    name: "&cElezioni • &8Fai la tua scelta!"
+    size: 27
+    political-parties:
+      testParty:
+        #- Nella lore, per utilizzare i colori, usa § invece di &.
+        name: "&aTest"
+        material: "GREEN_CONCRETE"
+        position: 10
+        lore:
+          - "§7Test lore"
+reload:
+  #- Permesso: 'elezioni.reload'
+  noPermission: "&cNon hai il permesso di eseguire questo comando."
+  wrongLength: "&cComando errato, utilizza /politica reload"
+  configReloaded: "&aIl config della politica è stato ricaricato con successo."
+voteblock:
+  consoleInstance: "La console non puo' eseguire questo comando."
+  #- Permesso: 'elezioni.givevoteblock'
+  noPermission: "&cNon hai il permesso di eseguire questo comando."
+  wrongLength: "&cComando errato, utilizza /givevoteblock"
+  data: 1
+  blockName: "&aUrna dei voti"
+  lore:
+    - "§7Urna dove inserire i voti."
+  givedBlock: "&aBlocco aggiunto con successo."

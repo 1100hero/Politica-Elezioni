@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Politica">
+    <output-path>$USER_HOME$/Downloads</output-path>
+    <root id="archive" name="Politica.jar">
+      <element id="module-output" name="Politica" />
+    </root>
+  </artifact>
+</component>
