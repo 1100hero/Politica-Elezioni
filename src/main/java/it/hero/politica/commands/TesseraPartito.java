@@ -1,5 +1,6 @@
 package it.hero.politica.commands;
 
+import com.sun.tools.classfile.ConstantPool;
 import it.hero.politica.Politica;
 import it.hero.politica.database.SQLControllerParties;
 import it.hero.politica.database.SQLControllerPartiesStorage;
@@ -40,11 +41,11 @@ public class TesseraPartito implements CommandExecutor {
             player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.manageWronghLength")));
             return true;
         }
+        if(!(controller.existTable("parties_player_list") || controller.isPlayerInParty(player))){
+            player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.notInAParty")));
+            return true;
+        }
         if(args[0].equalsIgnoreCase("tessera")){
-            if(!(controller.existTable("parties_player_list") || controller.isPlayerInParty(player))){
-                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.notInAParty")));
-                return true;
-            }
             if(!player.hasPermission("elezioni.partito.tessera")){
                 player.sendMessage(ColorAPI.color(plugin.getConfig().getString("noPermissionTesseraPlayer")));
                 return true;
@@ -109,9 +110,74 @@ public class TesseraPartito implements CommandExecutor {
                 whoInvited.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.refusedPlayerMsg")).replace("%name%", player.getName())));
                 map.remove(player);
             }else{
-                //target.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.wrongLength")));
+                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.wrongLength")));
             }
             return true;
+        }else if(args[0].equalsIgnoreCase("remove")){
+            if(!player.hasPermission("elezioni.partito.remove")){
+                player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.noPermissionRemove"))));
+                return true;
+            }
+            Player target = Bukkit.getPlayerExact(args[1]);
+            if(target == null){
+                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.notOnline")));
+                return true;
+            }
+            if(!(controller.getPlayerPartyName(player).equals(controller.getPlayerPartyName(target)) || controller.isPlayerInParty(target))){
+                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.anotherParty")));
+                return true;
+            }
+            if(plugin.getConfig().getBoolean("elezioni.data")){
+                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.startedElections")));
+                return true;
+            }
+            controller.removePlayerFromParty(target);
+            player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.removedTarget")).replace("%name%", target.getName())));
+            target.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.removedByPlayer")).replace("%name%", player.getName())));
+        }else if(args[0].equalsIgnoreCase("promote")){
+            if(!player.hasPermission("elezioni.partito.promote")){
+                player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.noPermissionPromote"))));
+                return true;
+            }
+            Player target = Bukkit.getPlayerExact(args[0]);
+            if(target == null){
+                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.notOnline")));
+                return true;
+            }
+            if(!(controller.getPlayerPartyName(player).equals(controller.getPlayerPartyName(target)) || controller.isPlayerInParty(target))){
+                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.anotherParty")));
+                return true;
+            }
+            if(plugin.getConfig().getBoolean("elezioni.data")){
+                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.startedElections")));
+                return true;
+            }
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " +target.getName()+ " set permission elezioni.partito.tessera");
+            player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.promotedTarget")).replace("%name%", target.getName())));
+            target.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.promoted")));
+        }else if(args[0].equalsIgnoreCase("demote")){
+            if(!player.hasPermission("elezioni.partito.demote")){
+                player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.noPermissionDemote"))));
+                return true;
+            }
+            Player target = Bukkit.getPlayerExact(args[0]);
+            if(target == null){
+                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.notOnline")));
+                return true;
+            }
+            if(!(controller.getPlayerPartyName(player).equals(controller.getPlayerPartyName(target)) || controller.isPlayerInParty(target))){
+                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.anotherParty")));
+                return true;
+            }
+            if(plugin.getConfig().getBoolean("elezioni.data")){
+                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.startedElections")));
+                return true;
+            }
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user "+target.getName()+" permission remove elezioni.partito.tessera");
+            player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.demotedTarget")).replace("%name%", target.getName())));
+            target.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.demotedByPlayer")));
+        }else{
+            player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.wrongLength")));
         }
         return true;
     }
