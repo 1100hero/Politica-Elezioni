@@ -18,7 +18,7 @@ elezioni:
   - "&a&lElezioni • &7Le elezioni sono ufficialmente &ainiziate&7!"
   - "&7Recati in uno dei seggi e fai la scelta che più ti ispira."
   terminaNoPermission: "&cNon hai il permesso di eseguire questo comando."
-  notStarted: "&cLe elezioni non sono ancora, iniziate."
+  notStarted: "&cLe elezioni non sono ancora iniziate."
   terminaBroadcast:
   - "&a&lElezioni • &7Le elezioni sono state terminate!"
   - "&7A breve verrà eletto un nuovo capo di stato."
@@ -75,10 +75,13 @@ partito:
   acceptedPlayerMsg: "&e%name% è entrato nel partito"
   refusedTargetMsg: "&cHai rifiutato di entrare in &e%partito%"
   refusedPlayerMsg: "&e%name% &cha rifiutato di entrare nel partito."
+  notInvited: "&cNon sei stato invitato in nessun partito."
+  notInAParty: "&cNon sei in nessun partito."
+  targetInParty: "&cIl giocatore scelto si trova già in un partito."
   item:
     name: "&atessera &e%partito%"
     lore:
-      - "§7Tessera ufficiale del partito! Di %name%"
+      - "§7Tessera ufficiale del partito!"
 voti:
   alreadyVoted: "&aHai già votato, non puoi votare nuovamente."
   voted: "&aHai votato con successo &e%partito%"

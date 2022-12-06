@@ -58,6 +58,11 @@ public class CreaPartito implements CommandExecutor {
             player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.notOnlineOrExists")));
             return true;
         }
+        SQLControllerPartiesStorage partiesStorage = new SQLControllerPartiesStorage(plugin);
+        if(controller.isPlayerInParty(leader) || partiesStorage.isOwner(player)){
+            player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.targetInParty")));
+            return true;
+        }
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user "+player.getName()+" permission set elezioni.partito.*");
         LinkedList<String> politicalPartiesName = new LinkedList<>(plugin.getConfig().getConfigurationSection("voti.gui.political-parties").getKeys(false));
         LinkedList<Integer> position = new LinkedList<>();
@@ -76,7 +81,6 @@ public class CreaPartito implements CommandExecutor {
         politicalPartiesName.forEach(s -> {
             lore.add(plugin.getConfig().getStringList("voti.gui.political-parties." + s + ".lore"));
         });
-        SQLControllerPartiesStorage partiesStorage = new SQLControllerPartiesStorage(plugin);
         politicalPartiesName.add(args[0]);
         position.add(position.get(position.size()-1)+1);
         material.add("GREEN_CONCRETE");
@@ -97,7 +101,7 @@ public class CreaPartito implements CommandExecutor {
         partiesStorage.createTable();
         partiesStorage.insertValues(args[0], args[2], args[1], leader, 0);
         controller.insertPlayer(leader, args[0]);
-        player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.created").replace("%partito%", args[0])));
+        leader.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.created")).replace("%partito%", args[0])));
         return true;
     }
 }

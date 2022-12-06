@@ -87,7 +87,8 @@ public class SQLControllerPartiesStorage {
             ps = plugin.sql.getConnection().prepareStatement("SELECT votes FROM parties_storage WHERE party=?");
             ps.setString(1, party);
             ResultSet rs = ps.executeQuery();
-            return rs.getInt(1);
+            while(rs.next())
+                return rs.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -118,5 +119,28 @@ public class SQLControllerPartiesStorage {
             e.printStackTrace();
         }
         return null;
+    }
+    public void resetVotes(){
+        PreparedStatement ps;
+        try{
+            ps = plugin.sql.getConnection().prepareStatement("UPDATE parties_storage SET votes=?");
+            ps.setInt(1, 0);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public boolean isOwner(Player player){
+        PreparedStatement ps;
+        try{
+            ps = plugin.sql.getConnection().prepareStatement("SELECT * FROM parties_storage WHERE owner_uuid=?");
+            ps.setString(1, String.valueOf(player.getUniqueId()));
+            ResultSet rs = ps.executeQuery();
+            while(rs.next())
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

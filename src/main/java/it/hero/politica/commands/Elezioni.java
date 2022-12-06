@@ -83,11 +83,12 @@ public class Elezioni implements CommandExecutor {
             plugin.saveConfig();
             Bukkit.getOnlinePlayers()
                     .forEach(p -> plugin.getConfig().getStringList("elezioni.terminaBroadcast")
-                            .forEach(m -> player.sendMessage(ColorAPI.color(m))));
+                            .forEach(m -> p.sendMessage(ColorAPI.color(m))));
             Bukkit.getOnlinePlayers().forEach(p -> {
                 if(p.hasPermission("elezioni.percentage"))
                     p.sendMessage(ColorAPI.color(plugin.getConfig().getString("elezioni.electionPercentage")).replace("%voti%", PlaceholderAPI.setPlaceholders(player, "%Politica_votes%")));
             });
+            partiesStorage.resetVotes();
             controller.deleteTable();
         }
         return true;

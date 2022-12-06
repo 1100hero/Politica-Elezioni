@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.UUID;
 
 public class SQLControllerParties {
 
@@ -89,5 +88,18 @@ public class SQLControllerParties {
             e.printStackTrace();
         }
         return null;
+    }
+    public boolean existTable(String table){
+        PreparedStatement ps;
+        try{
+            ps = plugin.sql.getConnection().prepareStatement("SELECT * FROM ?");
+            ps.setString(1, table);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
