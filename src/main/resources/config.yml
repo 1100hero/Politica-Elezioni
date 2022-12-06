@@ -46,8 +46,7 @@ electoralID:
     #- Nella lore, per utilizzare i colori usa, § invece di &.
     name: "&aTessera elettorale di %name%"
     lore:
-      - "§7Genere %genere%"
-      - "§7Registrata il %registration_date%"
+      - "§7Usa questa tessera per votare durante le elezioni."
 partito:
   consoleInstance: "La console non puo' eseguire questo comando.'"
   #- Permesso: 'elezioni.partito.crea'

@@ -46,8 +46,7 @@ electoralID:
     #- Nella lore, per utilizzare i colori usa, § invece di &.
     name: "&aTessera elettorale di %name%"
     lore:
-      - "§7Genere %genere%"
-      - "§7Registrata il %registration_date%"
+      - "§7Usa questa tessera per votare durante le elezioni."
 partito:
   consoleInstance: "La console non puo' eseguire questo comando.'"
   #- Permesso: 'elezioni.partito.crea'
@@ -77,11 +76,23 @@ partito:
   refusedPlayerMsg: "&e%name% &cha rifiutato di entrare nel partito."
   notInvited: "&cNon sei stato invitato in nessun partito."
   notInAParty: "&cNon sei in nessun partito."
-  targetInParty: "&cIl player scelto si trova già in un partito."
+  targetInParty: "&cIl giocatore scelto si trova già in un partito."
+  #- Permesso: 'elezioni.partito.remove'
+  noPermissionRemove: "&cNon hai il permesso di rimuovere i giocatori dal partito."
+  anotherParty: "&cIl giocatore scelto non si trova nel tuo partito."
+  removedTarget: "&aHai rimosso &e%name% &adal partito."
+  removedByPlayer: "&e%name% &cti ha rimosso dal partito."
+  startedElections: "&cNon puoi eseguire questo comando durante le elezioni."
+  noPermissionPromote: "&cNon hai il permesso di promuovere i membri del partito."
+  noPermissionDemote: "&cNon hai il permesso di demotare gli altri membri del partito."
+  promotedTarget: "&aHai promosso &e%name%"
+  promoted: "&aSei stato promosso! Ora potrai tesserare."
+  demotedTarget: "&aHai retrocesso &e%name%"
+  demotedByPlayer: "&cSei stato retrocesso! Ora non potrai più tesserare."
   item:
     name: "&atessera &e%partito%"
     lore:
-      - "§7Tessera ufficiale del partito! Di %name%"
+      - "§7Tessera ufficiale del partito!"
 voti:
   alreadyVoted: "&aHai già votato, non puoi votare nuovamente."
   voted: "&aHai votato con successo &e%partito%"

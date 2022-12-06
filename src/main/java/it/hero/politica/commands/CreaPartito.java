@@ -59,6 +59,7 @@ public class CreaPartito implements CommandExecutor {
             return true;
         }
         SQLControllerPartiesStorage partiesStorage = new SQLControllerPartiesStorage(plugin);
+        partiesStorage.createTable();
         if(controller.isPlayerInParty(leader) || partiesStorage.isOwner(player)){
             player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.targetInParty")));
             return true;
@@ -98,7 +99,6 @@ public class CreaPartito implements CommandExecutor {
             ++x;
         }
         plugin.saveConfig();
-        partiesStorage.createTable();
         partiesStorage.insertValues(args[0], args[2], args[1], leader, 0);
         controller.insertPlayer(leader, args[0]);
         leader.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.created")).replace("%partito%", args[0])));

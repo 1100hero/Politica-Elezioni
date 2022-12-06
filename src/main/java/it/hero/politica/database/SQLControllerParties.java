@@ -89,11 +89,10 @@ public class SQLControllerParties {
         }
         return null;
     }
-    public boolean existTable(String table){
+    public boolean existTable(){
         PreparedStatement ps;
         try{
-            ps = plugin.sql.getConnection().prepareStatement("SELECT * FROM ?");
-            ps.setString(1, table);
+            ps = plugin.sql.getConnection().prepareStatement("SELECT * FROM parties_player_list");
             ResultSet rs = ps.executeQuery();
             while (rs.next())
                 return true;
