@@ -7,8 +7,13 @@ import it.hero.politica.events.ClickedOnBlock;
 import it.hero.politica.events.VoteEvent;
 import it.hero.politica.utils.HologramLoader;
 import it.hero.politica.utils.PAPIExpansion;
+import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public final class Politica extends JavaPlugin {
 
@@ -41,6 +46,8 @@ public final class Politica extends JavaPlugin {
         this.getCommand("creapartito").setExecutor(new CreaPartito());
         this.getCommand("givevoteblock").setExecutor(new GiveCustomVoteBlock());
         this.getCommand("partito").setExecutor(new TesseraPartito());
+        this.getCommand("partychat").setExecutor(new PartyChat());
+        this.getCommand("politicahelp").setExecutor(new PoliticaHelp());
     }
     private void registerEvents(){
         this.getServer().getPluginManager().registerEvents(new ClickedOnBlock(), this);

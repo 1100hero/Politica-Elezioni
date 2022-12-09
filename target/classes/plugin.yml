@@ -18,3 +18,9 @@ commands:
     description: "Permette di givvare il blocco dove effettuare le votazioni."
   partito:
     description: "Permette di eseguire i comandi del partito."
+  partychat:
+    description: "Permette di scrivere nella chat del partito."
+    aliases: [pc]
+  politicahelp:
+    description: "Permette di visualizzare la lista dei comandi del plugin."
+    aliases: [ph]

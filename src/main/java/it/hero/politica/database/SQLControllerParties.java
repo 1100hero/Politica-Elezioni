@@ -42,21 +42,12 @@ public class SQLControllerParties {
         }
     }
 
-    public void deleteParty(String party){
-        PreparedStatement ps;
-        try{
-            ps = plugin.sql.getConnection().prepareStatement("DROP * FROM parties_player_list WHERE player_party = ?");
-            ps.setString(1, party);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void removePlayerFromParty(Player player){
         PreparedStatement ps;
         try{
-            ps = plugin.sql.getConnection().prepareStatement("DROP * FROM parties_player_list WHERE player_uuid = ?");
+            ps = plugin.sql.getConnection().prepareStatement("DELETE FROM parties_player_list WHERE player_uuid = ?");
             ps.setString(1, String.valueOf(player.getUniqueId()));
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -93,6 +84,21 @@ public class SQLControllerParties {
         PreparedStatement ps;
         try{
             ps = plugin.sql.getConnection().prepareStatement("SELECT * FROM parties_player_list");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean isPlayerInExactParty(Player player, String party){
+        PreparedStatement ps;
+        try{
+            ps = plugin.sql.getConnection().prepareStatement("SELECT player_uuid = ? FROM parties_player_list WHERE player_party = ?");
+            ps.setString(1, String.valueOf(player.getUniqueId()));
+            ps.setString(2, party);
             ResultSet rs = ps.executeQuery();
             while (rs.next())
                 return true;

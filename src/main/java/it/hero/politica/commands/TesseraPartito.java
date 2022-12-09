@@ -7,6 +7,7 @@ import it.hero.politica.datatype.ItemData;
 import it.hero.politica.enums.DataBlockID;
 import it.hero.politica.utils.ColorAPI;
 import it.hero.politica.utils.CooldownAPI;
+
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -31,6 +32,7 @@ public class TesseraPartito implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         Politica plugin = Politica.getPlugin(Politica.class);
         SQLControllerParties controller = new SQLControllerParties(plugin);
+        SQLControllerPartiesStorage partiesStorage = new SQLControllerPartiesStorage(plugin);
         if(!(sender instanceof Player)){
             sender.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.consoleInstance")));
             return true;
@@ -41,17 +43,21 @@ public class TesseraPartito implements CommandExecutor {
             return true;
         }
         if(args[0].equalsIgnoreCase("tessera")){
-            if(!(controller.existTable() || controller.isPlayerInParty(player))){
+            if(!controller.existTable() || !controller.isPlayerInParty(player)){
                 player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.notInAParty")));
                 return true;
             }
             if(!player.hasPermission("elezioni.partito.tessera")){
-                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("noPermissionTesseraPlayer")));
+                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.noPermissionTesseraPlayer")));
                 return true;
             }
             Player target = Bukkit.getPlayerExact(args[1]);
             if(target == null){
                 player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.notOnline")).replace("%name%", args[1])));
+                return true;
+            }
+            if(target == player){
+                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.notSelfCmd")));
                 return true;
             }
             if(controller.isPlayerInParty(target)){
@@ -93,7 +99,6 @@ public class TesseraPartito implements CommandExecutor {
                         .findFirst();
                 ItemData item = new ItemData(new ItemStack(Material.STICK));
                 plugin.getConfig().getStringList("partito.item.lore").forEach(ColorAPI::color);
-                SQLControllerPartiesStorage partiesStorage = new SQLControllerPartiesStorage(plugin);
                 item.setItem(DataBlockID.valueOf(partiesStorage.getColor(controller.getPlayerPartyName(whoInvited))).getValue(), ColorAPI.color(plugin.getConfig().getString("partito.item.name"))
                                 .replace("%partito%", controller.getPlayerPartyName(whoInvited)),
                         plugin.getConfig().getStringList("partito.item.lore"));
@@ -113,7 +118,7 @@ public class TesseraPartito implements CommandExecutor {
             }
             return true;
         }else if(args[0].equalsIgnoreCase("remove")){
-            if(!(controller.existTable() || controller.isPlayerInParty(player))){
+            if(!controller.existTable() || !controller.isPlayerInParty(player)){
                 player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.notInAParty")));
                 return true;
             }
@@ -126,8 +131,16 @@ public class TesseraPartito implements CommandExecutor {
                 player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.notOnline")));
                 return true;
             }
+            if(target == player){
+                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.notSelfCmd")));
+                return true;
+            }
             if(!(controller.getPlayerPartyName(player).equals(controller.getPlayerPartyName(target)) || controller.isPlayerInParty(target))){
                 player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.anotherParty")));
+                return true;
+            }
+            if(partiesStorage.isOwner(target)){
+                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.commandOnLeader")));
                 return true;
             }
             if(plugin.getConfig().getBoolean("elezioni.data")){
@@ -136,9 +149,8 @@ public class TesseraPartito implements CommandExecutor {
             }
             controller.removePlayerFromParty(target);
             player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.removedTarget")).replace("%name%", target.getName())));
-            target.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.removedByPlayer")).replace("%name%", player.getName())));
         }else if(args[0].equalsIgnoreCase("promote")){
-            if(!(controller.existTable() || controller.isPlayerInParty(player))){
+            if(!controller.existTable() || !controller.isPlayerInParty(player)){
                 player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.notInAParty")));
                 return true;
             }
@@ -146,24 +158,32 @@ public class TesseraPartito implements CommandExecutor {
                 player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.noPermissionPromote"))));
                 return true;
             }
-            Player target = Bukkit.getPlayerExact(args[0]);
+            Player target = Bukkit.getPlayerExact(args[1]);
             if(target == null){
                 player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.notOnline")));
+                return true;
+            }
+            if(target == player){
+                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.notSelfCmd")));
                 return true;
             }
             if(!(controller.getPlayerPartyName(player).equals(controller.getPlayerPartyName(target)) || controller.isPlayerInParty(target))){
                 player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.anotherParty")));
                 return true;
             }
+            if(target.hasPermission("elezioni.partito.tessera")){
+                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.alreadyPromoted")));
+                return true;
+            }
             if(plugin.getConfig().getBoolean("elezioni.data")){
                 player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.startedElections")));
                 return true;
             }
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " +target.getName()+ " set permission elezioni.partito.tessera");
+            Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "lp user " +target.getName()+ " permission set elezioni.partito.tessera true");
             player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.promotedTarget")).replace("%name%", target.getName())));
             target.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.promoted")));
         }else if(args[0].equalsIgnoreCase("demote")){
-            if(!(controller.existTable() || controller.isPlayerInParty(player))){
+            if(!controller.existTable() || !controller.isPlayerInParty(player)){
                 player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.notInAParty")));
                 return true;
             }
@@ -171,22 +191,33 @@ public class TesseraPartito implements CommandExecutor {
                 player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.noPermissionDemote"))));
                 return true;
             }
-            Player target = Bukkit.getPlayerExact(args[0]);
+            Player target = Bukkit.getPlayerExact(args[1]);
             if(target == null){
                 player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.notOnline")).replace("%name%", args[0])));
+                return true;
+            }
+            if(target == player){
+                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.notSelfCmd")));
                 return true;
             }
             if(!(controller.getPlayerPartyName(player).equals(controller.getPlayerPartyName(target)) || controller.isPlayerInParty(target))){
                 player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.anotherParty")));
                 return true;
             }
+            if(partiesStorage.isOwner(target)){
+                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.commandOnLeader")));
+                return true;
+            }
+            if(!target.hasPermission("elezioni.partito.tessera")){
+                player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.alreadyDemoted")));
+                return true;
+            }
             if(plugin.getConfig().getBoolean("elezioni.data")){
                 player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.startedElections")));
                 return true;
             }
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user "+target.getName()+" permission remove elezioni.partito.tessera");
+            Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(), "lp user "+target.getName()+" permission unset elezioni.partito.tessera");
             player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.demotedTarget")).replace("%name%", target.getName())));
-            target.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.demotedByPlayer")));
         }else{
             player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.wrongLength")));
         }

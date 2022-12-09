@@ -6,7 +6,7 @@ db:
   port: 3306
 elezioni:
   consoleInstance: "La console non puo' eseguire questo comando."
-  wrongLength: "&cUtilizzo del comando sbagliato, usa /elezioni <inizia/termina>"
+  wrongLength: "&cUtilizzo del comando sbagliato, usa /politicahelp per ottenere la lista dei comandi."
   #- Permesso: 'elezioni.inizia'
   iniziaNoPermission: "&cNon hai il permesso per eseguire questo comando."
   notParties: "&cNon esistono partiti pertanto non si possono avviare le elezioni."
@@ -76,19 +76,22 @@ partito:
   refusedPlayerMsg: "&e%name% &cha rifiutato di entrare nel partito."
   notInvited: "&cNon sei stato invitato in nessun partito."
   notInAParty: "&cNon sei in nessun partito."
+  alreadyPromoted: "&cIl giocatore non puo' essere ulteriormente promosso."
+  alreadyDemoted: "&cNon puoi retrocedere ulteriormente questo giocatore."
+  notSelfCmd: "&cNon puoi eseguire queusto comando su te stesso."
+  commandOnLeader: "&cNon puoi eseguire questo comando sul leader del partito."
   targetInParty: "&cIl giocatore scelto si trova già in un partito."
   #- Permesso: 'elezioni.partito.remove'
   noPermissionRemove: "&cNon hai il permesso di rimuovere i giocatori dal partito."
   anotherParty: "&cIl giocatore scelto non si trova nel tuo partito."
   removedTarget: "&aHai rimosso &e%name% &adal partito."
-  removedByPlayer: "&e%name% &cti ha rimosso dal partito."
   startedElections: "&cNon puoi eseguire questo comando durante le elezioni."
   noPermissionPromote: "&cNon hai il permesso di promuovere i membri del partito."
   noPermissionDemote: "&cNon hai il permesso di demotare gli altri membri del partito."
   promotedTarget: "&aHai promosso &e%name%"
   promoted: "&aSei stato promosso! Ora potrai tesserare."
   demotedTarget: "&aHai retrocesso &e%name%"
-  demotedByPlayer: "&cSei stato retrocesso! Ora non potrai più tesserare."
+  wrongLength: "&cIl comando inserito non e' corretto."
   item:
     name: "&atessera &e%partito%"
     lore:
@@ -110,6 +113,10 @@ voti:
         position: 10
         lore:
           - "§7Test lore"
+partyChat:
+  consoleInstance: "La console non puo' eseguire questo comando."
+  notInAParty: "&cDevi essere in un partito per poter eseguire questo comando."
+  message: "%color%&l%party% &e%name%: &7%message%"
 reload:
   #- Permesso: 'elezioni.reload'
   noPermission: "&cNon hai il permesso di eseguire questo comando."
@@ -125,3 +132,23 @@ voteblock:
   lore:
     - "§7Urna dove inserire i voti."
   givedBlock: "&aBlocco aggiunto con successo."
+help:
+  consoleInstance: "La console non puo' eseguire questo comando."
+  noPermission: "&cNon hai il permesso di eseguire questo comando."
+  message:
+    - "&bLista comandi Politica v1.0"
+    - " "
+    - "/elezioni inizia"
+    - "/elezioni termina"
+    - "/politica reload"
+    - "/creapartito <nome> <colore> <orientamento> <leader>"
+    - "/givevoteblock"
+    - "/partito tessera <nome>"
+    - "/partito remove <nome>"
+    - "/partito demote <nome>"
+    - "/partito promote <nome>"
+    - "/partychat <messaggio>"
+    - "/partylist"
+    - "/politicahelp"
+    - " "
+    - "Created by 1100hero."
