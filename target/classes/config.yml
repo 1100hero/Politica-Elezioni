@@ -33,20 +33,6 @@ elezioni:
     text:
       - "&eCi sono attualmente &6&l%voti% &evoti registrati!"
   block: "OBSERVER"
-electoralID:
-  consoleInstance: "La console non puo' eseguire questo comando."
-  wrongLength: "&cIl comando inserito non esista, usa /tessera give <nome>"
-  #- Permesso: 'elezioni.tessera'
-  noPermission: "&cNon hai il permesso di eseguire questo comando."
-  noOnlineTarget: "&cIl giocatore &e%name% &cnon è in città."
-  #- Tempo espresso in secondi (s)
-  timer: 20
-  timeToWait: "&cDevi aspettare altri &e%time%s &cprima di eseguire nuovamente questo comando."
-  ID:
-    #- Nella lore, per utilizzare i colori usa, § invece di &.
-    name: "&aTessera elettorale di %name%"
-    lore:
-      - "§7Usa questa tessera per votare durante le elezioni."
 partito:
   consoleInstance: "La console non puo' eseguire questo comando.'"
   #- Permesso: 'elezioni.partito.crea'
@@ -95,7 +81,8 @@ partito:
   item:
     name: "&atessera &e%partito%"
     lore:
-      - "§7Tessera ufficiale del partito!"
+      - " "
+      - "&7Orientamento: &f%orientation%"
 voti:
   alreadyVoted: "&aHai già votato, non puoi votare nuovamente."
   voted: "&aHai votato con successo &e%partito%"
@@ -107,12 +94,11 @@ voti:
     size: 27
     political-parties:
       testParty:
-        #- Nella lore, per utilizzare i colori, usa § invece di &.
         name: "&aTest"
         material: "GREEN_CONCRETE"
         position: 10
         lore:
-          - "§7Test lore"
+          - "&7Test lore"
 partyChat:
   consoleInstance: "La console non puo' eseguire questo comando."
   notInAParty: "&cDevi essere in un partito per poter eseguire questo comando."
@@ -130,24 +116,40 @@ voteblock:
   data: 1
   blockName: "&aUrna dei voti"
   lore:
-    - "§7Urna dove inserire i voti."
+    - "&7Urna dove inserire i voti."
   givedBlock: "&aBlocco aggiunto con successo."
+partyList:
+  consoleInstance: "La console non puo' eseguire questo comando."
+  #- Permesso: 'elezioni.partyList'
+  noPermission: "&cNon hai il permesso di eseguire questo comando."
+  guiName: "&aLista dei partiti"
+  nextPage: "&cProssima pagina"
+  nextPageItem: "GLASS_PANE"
+  nextItemPosition: 50
+  prevPage: "&cPagina precedente"
+  prevPageItem: "GLASS_PANE"
+  prevItemPosition: 48
+  headName: "&aPartito &e%partito%"
+  lore:
+    - "&aLeader &e%owner%"
 help:
   consoleInstance: "La console non puo' eseguire questo comando."
+  #- Permesso: 'elezioni.listacomandi'
   noPermission: "&cNon hai il permesso di eseguire questo comando."
   message:
     - "&bLista comandi Politica v1.0"
     - " "
-    - "/elezioni inizia : inizia le elezioni."
-    - "/elezioni termina : termina le elezioni."
-    - "/politica reload : ricarica il file di configurazione."
-    - "/creapartito <nome> <colore> <orientamento> <leader> : crea un partito politico."
-    - "/givevoteblock : ottieni in inventario la urna dei voti."
-    - "/partito tessera <nome> : tessera un cittadino nel partito."
-    - "/partito remove <nome> : rimuovi un giocatore dal partito."
-    - "/partito demote <nome> : retrocedi un giocatore dal partito."
-    - "/partito promote <nome> : promuovi un giocatore nel partito."
-    - "/partychat <messaggio> : manda un messaggio nella chat del partito."
-    - "/politicahelp : apri la lista delle informazioni sui comandi."
+    - "/elezioni inizia"
+    - "/elezioni termina"
+    - "/politica reload"
+    - "/creapartito <nome> <colore> <orientamento> <leader>"
+    - "/givevoteblock"
+    - "/partito tessera <nome>"
+    - "/partito remove <nome>"
+    - "/partito demote <nome>"
+    - "/partito promote <nome>"
+    - "/partychat <messaggio>"
+    - "/partylist"
+    - "/politicahelp"
     - " "
     - "Created by 1100hero."

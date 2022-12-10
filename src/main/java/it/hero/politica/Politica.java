@@ -4,6 +4,7 @@ import it.hero.politica.commands.*;
 import it.hero.politica.database.MySQL;
 import it.hero.politica.database.SQLControllerVotes;
 import it.hero.politica.events.ClickedOnBlock;
+import it.hero.politica.events.PartyListEvent;
 import it.hero.politica.events.VoteEvent;
 import it.hero.politica.utils.HologramLoader;
 import it.hero.politica.utils.PAPIExpansion;
@@ -41,16 +42,17 @@ public final class Politica extends JavaPlugin {
     }
     private void registerCommands(){
         this.getCommand("elezioni").setExecutor(new Elezioni());
-        this.getCommand("tessera").setExecutor(new TesseraElettorale());
         this.getCommand("politica").setExecutor(new ReloadConfig());
         this.getCommand("creapartito").setExecutor(new CreaPartito());
         this.getCommand("givevoteblock").setExecutor(new GiveCustomVoteBlock());
         this.getCommand("partito").setExecutor(new TesseraPartito());
         this.getCommand("partychat").setExecutor(new PartyChat());
         this.getCommand("politicahelp").setExecutor(new PoliticaHelp());
+        this.getCommand("partylist").setExecutor(new PartyList());
     }
     private void registerEvents(){
         this.getServer().getPluginManager().registerEvents(new ClickedOnBlock(), this);
         this.getServer().getPluginManager().registerEvents(new VoteEvent(), this);
+        this.getServer().getPluginManager().registerEvents(new PartyListEvent(), this);
     }
 }

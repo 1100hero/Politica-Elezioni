@@ -13,6 +13,7 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,6 +23,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class TesseraPartito implements CommandExecutor {
@@ -101,7 +103,8 @@ public class TesseraPartito implements CommandExecutor {
                 plugin.getConfig().getStringList("partito.item.lore").forEach(ColorAPI::color);
                 item.setItem(DataBlockID.valueOf(partiesStorage.getColor(controller.getPlayerPartyName(whoInvited))).getValue(), ColorAPI.color(plugin.getConfig().getString("partito.item.name"))
                                 .replace("%partito%", controller.getPlayerPartyName(whoInvited)),
-                        plugin.getConfig().getStringList("partito.item.lore"));
+                        plugin.getConfig().getStringList("partito.item.lore").stream()
+                                .map(s -> ChatColor.translateAlternateColorCodes('&', s.replace("%orientation%", partiesStorage.getOrientation(controller.getPlayerPartyName(whoInvited))))).collect(Collectors.toList()));
                 if(!optionalInt.isPresent()){
                     player.getWorld().dropItem(player.getLocation(), item.getItem());
                     return true;

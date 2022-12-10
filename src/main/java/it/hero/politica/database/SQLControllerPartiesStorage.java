@@ -1,12 +1,15 @@
 package it.hero.politica.database;
 
 import it.hero.politica.Politica;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.UUID;
 
 public class SQLControllerPartiesStorage {
     private Politica plugin;
@@ -142,5 +145,58 @@ public class SQLControllerPartiesStorage {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public int getNOfParties(){
+        PreparedStatement ps;
+        try{
+            ps = plugin.sql.getConnection().prepareStatement("SELECT SUM(id) FROM parties_storage");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next())
+                return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    public OfflinePlayer getOwnerById(int id){
+        PreparedStatement ps;
+        try{
+            ps = plugin.sql.getConnection().prepareStatement("SELECT owner_uuid FROM parties_storage WHERE id = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next())
+                return Bukkit.getOfflinePlayer(UUID.fromString(rs.getString(1)));
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public String getOwnerParty(OfflinePlayer player){
+        PreparedStatement ps;
+        try{
+            ps = plugin.sql.getConnection().prepareStatement("SELECT party FROM parties_storage WHERE owner_uuid = ?");
+            ps.setString(1, String.valueOf(Bukkit.getOfflinePlayer(player.getUniqueId()).getUniqueId()));
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+                return rs.getString(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String getOrientation(String party){
+        PreparedStatement ps;
+        try{
+            ps = plugin.sql.getConnection().prepareStatement("SELECT orientation FROM party_storage WHERE party=?");
+            ps.setString(1, party);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next())
+                return rs.getString(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

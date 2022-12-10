@@ -3,6 +3,7 @@ package it.hero.politica.commands;
 import it.hero.politica.Politica;
 import it.hero.politica.datatype.BlockData;
 import it.hero.politica.utils.ColorAPI;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.List;
 import java.util.OptionalInt;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class GiveCustomVoteBlock implements CommandExecutor {
@@ -37,8 +39,8 @@ public class GiveCustomVoteBlock implements CommandExecutor {
         BlockData blockData = new BlockData(new ItemStack(Material.valueOf(plugin.getConfig().getString("elezioni.block"))));
         blockData.setItem(plugin.getConfig().getInt("voteblock.data"),
                 ColorAPI.color(plugin.getConfig().getString("voteblock.blockName")),
-                ColorAPI.color(plugin.getConfig().getStringList("voteblock.lore")));
-
+                plugin.getConfig().getStringList("voteblock.lore").stream()
+                        .map(s -> ChatColor.translateAlternateColorCodes('&', s)).collect(Collectors.toList()));
         List<ItemStack> items = Arrays.asList(player.getInventory().getStorageContents());
         OptionalInt optionalInt = IntStream.range(0, items.size()).
                 filter(s -> items.get(s) == null)

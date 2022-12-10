@@ -8,8 +8,6 @@ description: Plugin creato su commissione per Bisignano, permette di gestire la 
 commands:
   elezioni:
     description: "Permette di iniziare o terminare le elezioni."
-  tessera:
-    description: "Permette di givvare una tessera elettorale in inventrario ad un giocatore."
   politica:
     description: "Permette di ricaricare il config della politica."
   creapartito:
@@ -24,3 +22,6 @@ commands:
   politicahelp:
     description: "Permette di visualizzare la lista dei comandi del plugin."
     aliases: [ph]
+  partylist:
+    description: "Permette di visualizzare tutti i partiti registrati."
+    aliases: [pl]
