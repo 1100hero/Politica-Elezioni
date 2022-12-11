@@ -1,7 +1,6 @@
 package it.hero.politica.commands;
 
 import it.hero.politica.Politica;
-import it.hero.politica.database.SQLControllerParties;
 import it.hero.politica.database.SQLControllerPartiesStorage;
 import it.hero.politica.gui.PartyListGui;
 import it.hero.politica.utils.ColorAPI;
@@ -37,10 +36,12 @@ public class PartyList implements CommandExecutor {
             return true;
         }
         SQLControllerPartiesStorage partiesStorage = new SQLControllerPartiesStorage(plugin);
-        SQLControllerParties controller = new SQLControllerParties(plugin);
+        if(!partiesStorage.existParty()){
+            player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partyList.noParty")));
+            return true;
+        }
         ArrayList<ItemStack> items = new ArrayList<>();
         for(int i = 0, j=1; i < partiesStorage.getNOfParties(); i++,j++) {
-            //items.add(PlayerHead.getHead(Objects.requireNonNull(partiesStorage.getOwnerById(j))));
             items.add(PlayerHead.getHead(partiesStorage.getOwnerById(j)));
             ItemMeta meta = items.get(i).getItemMeta();
             String owner = partiesStorage.getOwnerById(j).getName();

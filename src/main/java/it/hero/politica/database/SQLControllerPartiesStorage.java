@@ -4,7 +4,6 @@ import it.hero.politica.Politica;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -97,19 +96,6 @@ public class SQLControllerPartiesStorage {
         }
         return 0;
     }
-    public boolean isAParty(String party){
-        PreparedStatement ps;
-        try{
-            ps = plugin.sql.getConnection().prepareStatement("SELECT party FROM parties_storage");
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                if(rs.getString(1).equalsIgnoreCase(party)) return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
     public String getColor(String party){
         PreparedStatement ps;
         try{
@@ -149,15 +135,16 @@ public class SQLControllerPartiesStorage {
 
     public int getNOfParties(){
         PreparedStatement ps;
+        int x=0;
         try{
-            ps = plugin.sql.getConnection().prepareStatement("SELECT SUM(id) FROM parties_storage");
+            ps = plugin.sql.getConnection().prepareStatement("SELECT * FROM parties_storage");
             ResultSet rs = ps.executeQuery();
             while(rs.next())
-                return rs.getInt(1);
+                ++x;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0;
+        return x;
     }
     public OfflinePlayer getOwnerById(int id){
         PreparedStatement ps;
@@ -189,7 +176,7 @@ public class SQLControllerPartiesStorage {
     public String getOrientation(String party){
         PreparedStatement ps;
         try{
-            ps = plugin.sql.getConnection().prepareStatement("SELECT orientation FROM party_storage WHERE party=?");
+            ps = plugin.sql.getConnection().prepareStatement("SELECT orientation FROM parties_storage WHERE party=?");
             ps.setString(1, party);
             ResultSet rs = ps.executeQuery();
             while (rs.next())

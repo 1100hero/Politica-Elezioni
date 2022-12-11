@@ -20,7 +20,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class VoteEvent implements Listener {

@@ -25,3 +25,6 @@ commands:
   partylist:
     description: "Permette di visualizzare tutti i partiti registrati."
     aliases: [pl]
+  politicahelpadmin:
+    description: "Permette di visualizzare la lista dei comandi del plugin di un admin."
+    aliases: [pha]

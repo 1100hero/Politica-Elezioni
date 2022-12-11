@@ -1,11 +1,9 @@
 package it.hero.politica.events;
 
 import it.hero.politica.Politica;
-import it.hero.politica.datatype.ItemData;
 import it.hero.politica.gui.VoteGui;
 import it.hero.politica.database.SQLControllerVotes;
 import it.hero.politica.utils.ColorAPI;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,6 +13,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ClickedOnBlock implements Listener {
 
@@ -27,6 +26,13 @@ public class ClickedOnBlock implements Listener {
                 if(player.getInventory().getItemInMainHand().getItemMeta().getCustomModelData() == 161 && Objects.requireNonNull(player.getInventory().getItemInMainHand().getItemMeta().getLore())
                         .stream()
                         .anyMatch(s -> s.contains(player.getName()))){
+                    AtomicInteger utilizzi= new AtomicInteger();
+                    player.getInventory().getItemInMainHand().getItemMeta().getLore().forEach(s -> {
+                        if(s.startsWith("Utilizzi:")){
+                            utilizzi.set(s.charAt(16));
+                        }
+                    });
+                    //if(utilizzi.get() == 0) return;
                     if(!plugin.getConfig().getBoolean("elezioni.data")){
                         player.sendMessage(ColorAPI.color(plugin.getConfig().getString("elezioni.notStarted")));
                         return;

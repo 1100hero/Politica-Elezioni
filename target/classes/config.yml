@@ -44,7 +44,6 @@ partito:
   orientationNotExists: "&cL'orientamento scelto non esiste."
   created: "&aHai creato il partito %partito%"
   notOnlineOrExists: "&cIl leader inserito non è online o non esiste."
-  manageWronghLength: "&cIl comando inserito non e' corretto."
   notOnline: "&cIl giocatore &e%name% &cnon è in città"
   #- Permesso: 'elezioni.partito.tessera'
   noPermissionTesseraPlayer: "&cNon hai il permesso di eseguire questo comando."
@@ -77,7 +76,23 @@ partito:
   promotedTarget: "&aHai promosso &e%name%"
   promoted: "&aSei stato promosso! Ora potrai tesserare."
   demotedTarget: "&aHai retrocesso &e%name%"
-  wrongLength: "&cIl comando inserito non e' corretto."
+  wrongLength: "&cUtilizzo del comando sbagliato, usa /politicahelp per ottenere la lista dei comandi."
+   #- Permesso: 'elezioni.partito.lista'
+  noPermissionList: "&cNon hai il permesso di eseguire questo comando."
+  partyNotExist: "&cIl partito scelto non esiste."
+  wrongParty: "&cNon puoi guardare la lista di questo partito."
+  nextPage: "&cProssima pagina"
+  nextPageItem: "GLASS_PANE"
+  nextItemPosition: 50
+  nextData: 2
+  prevPage: "&cPagina precedente"
+  prevPageItem: "GLASS_PANE"
+  prevItemPosition: 48
+  prevData: 1
+  guiName: "&aLista affiliati &e%partito%"
+  headName: "&aAffiliato &e%name%"
+  lore:
+    - "&aAffiliato al partito &e%partito%"
   item:
     name: "&atessera &e%partito%"
     lore:
@@ -106,13 +121,13 @@ partyChat:
 reload:
   #- Permesso: 'elezioni.reload'
   noPermission: "&cNon hai il permesso di eseguire questo comando."
-  wrongLength: "&cComando errato, utilizza /politica reload"
+  wrongLength: "&cUtilizzo del comando sbagliato, usa /politicahelp per ottenere la lista dei comandi."
   configReloaded: "&aIl config della politica è stato ricaricato con successo."
 voteblock:
   consoleInstance: "La console non puo' eseguire questo comando."
   #- Permesso: 'elezioni.givevoteblock'
   noPermission: "&cNon hai il permesso di eseguire questo comando."
-  wrongLength: "&cComando errato, utilizza /givevoteblock"
+  wrongLength: "&cUtilizzo del comando sbagliato, usa /politicahelp per ottenere la lista dei comandi."
   data: 1
   blockName: "&aUrna dei voti"
   lore:
@@ -122,13 +137,16 @@ partyList:
   consoleInstance: "La console non puo' eseguire questo comando."
   #- Permesso: 'elezioni.partyList'
   noPermission: "&cNon hai il permesso di eseguire questo comando."
+  noParty: "&cNon esiste nessun partito."
   guiName: "&aLista dei partiti"
   nextPage: "&cProssima pagina"
   nextPageItem: "GLASS_PANE"
   nextItemPosition: 50
+  nextData: 2
   prevPage: "&cPagina precedente"
   prevPageItem: "GLASS_PANE"
   prevItemPosition: 48
+  prevData: 1
   headName: "&aPartito &e%partito%"
   lore:
     - "&aLeader &e%owner%"
@@ -137,19 +155,34 @@ help:
   #- Permesso: 'elezioni.listacomandi'
   noPermission: "&cNon hai il permesso di eseguire questo comando."
   message:
-    - "&bLista comandi Politica v1.0"
+    - "                 &bLista comandi Politica v1.0"
     - " "
-    - "/elezioni inizia"
-    - "/elezioni termina"
-    - "/politica reload"
-    - "/creapartito <nome> <colore> <orientamento> <leader>"
-    - "/givevoteblock"
-    - "/partito tessera <nome>"
-    - "/partito remove <nome>"
-    - "/partito demote <nome>"
-    - "/partito promote <nome>"
-    - "/partychat <messaggio>"
-    - "/partylist"
-    - "/politicahelp"
+    - "&e/partito tessera <nome>"
+    - "&e/partito remove <nome>"
+    - "&e/partito demote <nome>"
+    - "&e/partito promote <nome>"
+    - "&e/partito lista <partito>"
+    - "&e/partychat <messaggio>"
+    - "&e/politicahelp"
     - " "
-    - "Created by 1100hero."
+    - "                     &bCreated by 1100hero."
+  #- Permesso: 'elezioni.listacomandiadmin'
+  noPermissionAdmin: "&cNon hai il permesso di eseguire questo comando."
+  admin-message:
+    - "                 &bLista comandi Politica v1.0"
+    - " "
+    - "&e/elezioni inizia"
+    - "&e/elezioni termina"
+    - "&e/politica reload"
+    - "&e/creapartito <nome> <colore> <orientamento> <leader>"
+    - "&e/givevoteblock"
+    - "&e/partito tessera <nome>"
+    - "&e/partito remove <nome>"
+    - "&e/partito demote <nome>"
+    - "&e/partito promote <nome>"
+    - "&e/partito lista <partito>"
+    - "&e/partychat <messaggio>"
+    - "&e/partylist"
+    - "&e/politicahelp"
+    - " "
+    - "                     &bCreated by 1100hero."

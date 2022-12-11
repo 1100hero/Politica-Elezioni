@@ -1,6 +1,9 @@
 package it.hero.politica;
 
 import it.hero.politica.commands.*;
+import it.hero.politica.commands.help.PoliticaHelp;
+import it.hero.politica.commands.help.PoliticaHelpAdmin;
+import it.hero.politica.commands.partito.TesseraPartito;
 import it.hero.politica.database.MySQL;
 import it.hero.politica.database.SQLControllerVotes;
 import it.hero.politica.events.ClickedOnBlock;
@@ -8,13 +11,8 @@ import it.hero.politica.events.PartyListEvent;
 import it.hero.politica.events.VoteEvent;
 import it.hero.politica.utils.HologramLoader;
 import it.hero.politica.utils.PAPIExpansion;
-import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 public final class Politica extends JavaPlugin {
 
@@ -49,6 +47,7 @@ public final class Politica extends JavaPlugin {
         this.getCommand("partychat").setExecutor(new PartyChat());
         this.getCommand("politicahelp").setExecutor(new PoliticaHelp());
         this.getCommand("partylist").setExecutor(new PartyList());
+        this.getCommand("politicahelpadmin").setExecutor(new PoliticaHelpAdmin());
     }
     private void registerEvents(){
         this.getServer().getPluginManager().registerEvents(new ClickedOnBlock(), this);

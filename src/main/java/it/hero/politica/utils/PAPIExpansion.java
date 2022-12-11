@@ -7,9 +7,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.LinkedList;
-import java.util.concurrent.atomic.AtomicInteger;
-
 public class PAPIExpansion extends PlaceholderExpansion {
     private final Politica plugin = Politica.getPlugin(Politica.class);
     @Override

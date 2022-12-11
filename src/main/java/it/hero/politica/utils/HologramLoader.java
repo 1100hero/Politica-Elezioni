@@ -6,7 +6,6 @@ import me.filoghost.holographicdisplays.api.HolographicDisplaysAPI;
 import me.filoghost.holographicdisplays.api.hologram.Hologram;
 import me.filoghost.holographicdisplays.api.hologram.line.TextHologramLine;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 
 import java.util.List;

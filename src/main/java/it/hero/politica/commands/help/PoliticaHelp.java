@@ -1,4 +1,4 @@
-package it.hero.politica.commands;
+package it.hero.politica.commands.help;
 
 import it.hero.politica.Politica;
 import it.hero.politica.utils.ColorAPI;

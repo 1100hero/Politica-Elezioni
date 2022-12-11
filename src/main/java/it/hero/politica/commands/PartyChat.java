@@ -31,19 +31,20 @@ public class PartyChat implements CommandExecutor {
             player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partyChat.notInAParty")));
             return true;
         }
+        if(args.length == 0) return true;
         SQLControllerPartiesStorage controllerParties = new SQLControllerPartiesStorage(plugin);
         List<String> list = new ArrayList<>(Arrays.asList(args));
         StringBuilder message = new StringBuilder();
         list.forEach(s->message.append(" ").append(s));
-        Bukkit.getOnlinePlayers().forEach(p -> {
-            if(controller.isPlayerInExactParty(p, controller.getPlayerPartyName(player))){
-                p.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partyChat.message"))
-                        .replace("%color%", ColorID.valueOf(controllerParties.getColor(controller.getPlayerPartyName(player))).getColorID())
-                        .replace("%party%", controller.getPlayerPartyName(player).toUpperCase())
-                                .replace("%name%", player.getName())
-                                        .replace("%message%", message.substring(1))));
-            }
-        });
+        for (Player p : Bukkit.getOnlinePlayers()){
+            if(!controller.isPlayerInParty(p)) continue;
+            if(!controller.isPlayerInExactParty(p, player)) continue;
+            p.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partyChat.message"))
+                    .replace("%color%", ColorID.valueOf(controllerParties.getColor(controller.getPlayerPartyName(player))).getColorID())
+                    .replace("%party%", controller.getPlayerPartyName(player).toUpperCase())
+                    .replace("%name%", player.getName())
+                    .replace("%message%", message.substring(1))));
+        }
         return true;
     }
 }
