@@ -17,10 +17,6 @@ public class PoliticaHelp implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
-        if(!player.hasPermission("elezioni.listacomandi")){
-            player.sendMessage(ColorAPI.color(plugin.getConfig().getString("help.noPermission")));
-            return true;
-        }
         if(args.length != 0){
             player.sendMessage(ColorAPI.color(plugin.getConfig().getString("help.wrongLength")));
             return true;

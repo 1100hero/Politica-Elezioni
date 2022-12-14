@@ -16,11 +16,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class VoteEvent implements Listener {
     @EventHandler
@@ -48,6 +49,23 @@ public class VoteEvent implements Listener {
                             plugin.getConfig().getInt("voti.pitch"));
                     controller.insertPlayer(player, s);
                     controllerPartiesStorage.updateVotes(s, controllerPartiesStorage.getVoteByParty(s)+1);
+                    int utilizzi=-1;
+                    String utilizziStr = "";
+                    for(String c : Objects.requireNonNull(player.getInventory().getItemInMainHand().getItemMeta().getLore())){
+                             if(!c.contains("Utilizzi:")) continue;
+                             utilizzi = Integer.parseInt(String.valueOf(c.charAt(15)));
+                             utilizziStr = c;
+                    }
+                    OptionalInt optionalInt = IntStream.range(0, player.getInventory().getItemInMainHand().getItemMeta().getLore().size())
+                            .filter(t -> player.getInventory().getItemInMainHand().getItemMeta().getLore().get(t).contains("Utilizzi:"))
+                            .findFirst();
+                    if(!optionalInt.isPresent()) return;
+                    ItemStack item = player.getInventory().getItemInMainHand();
+                    ItemMeta meta = item.getItemMeta();
+                    List<String> list = meta.getLore();
+                    list.set(optionalInt.getAsInt(), utilizziStr.replace(String.valueOf(utilizzi), String.valueOf(--utilizzi)));
+                    meta.setLore(list);
+                    player.getInventory().getItemInMainHand().setItemMeta(meta);
                 }
             }
             Hologram holo = api.createHologram(new Location(Bukkit.getWorld(Objects.requireNonNull(plugin.getConfig().getString("elezioni.Hologram.position.world"))),

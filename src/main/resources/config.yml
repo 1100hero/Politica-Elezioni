@@ -100,6 +100,8 @@ partito:
       - "&7Orientamento: &f%orientation%"
 voti:
   alreadyVoted: "&aHai già votato, non puoi votare nuovamente."
+  expiredID: "&cIl documento è scaduto fanne uno nuovo per poter votare."
+  expiredUtilizzi: "&cHai esaurito gli utilizzi della tessera fanne una nuova per poter votare."
   voted: "&aHai votato con successo &e%partito%"
   votedSound: "ENTITY_PLAYER_LEVELUP"
   volume: 4
@@ -152,8 +154,7 @@ partyList:
     - "&aLeader &e%owner%"
 help:
   consoleInstance: "La console non puo' eseguire questo comando."
-  #- Permesso: 'elezioni.listacomandi'
-  noPermission: "&cNon hai il permesso di eseguire questo comando."
+  wrongLength: "&cUtilizzo del comando sbagliato, usa /politicahelp per ottenere la lista dei comandi."
   message:
     - "                 &bLista comandi Politica v1.0"
     - " "
