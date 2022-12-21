@@ -37,8 +37,8 @@ partito:
   consoleInstance: "La console non puo' eseguire questo comando.'"
   #- Permesso: 'elezioni.partito.crea'
   creaNoPermission: "&cNon hai il permesso di eseguire questo comando."
-  alreadyInParty: "&cTi trovi già nel partito %partito%"
   creaWrongLength: "&cComando errato, esegui /creapartito (nome) (colore) (orientamento) (leader)"
+  alreadyExistParty: "&cEsiste già un partito con questo nome."
   electionStarted: "&cNon puoi creare un partito mentre le elezioni si stanno svolgendo."
   colorNotExists: "&cIl colore scelto non esiste"
   orientationNotExists: "&cL'orientamento scelto non esiste."

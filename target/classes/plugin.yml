@@ -28,3 +28,5 @@ commands:
   politicahelpadmin:
     description: "Permette di visualizzare la lista dei comandi del plugin di un admin."
     aliases: [pha]
+  detesserati:
+    description: "Permette di detesserarti dal partito."

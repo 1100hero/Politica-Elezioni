@@ -22,7 +22,7 @@ public class Detesserati implements CommandExecutor {
         }
         Player player = (Player)sender;
         if(!player.hasPermission("elezioni.detesserati")){
-            player.sendMessage(ColorAPI.color(plugin.getConfig().getString("detessrati.noPermission")));
+            player.sendMessage(ColorAPI.color(plugin.getConfig().getString("detesserati.noPermission")));
             return true;
         }
         if(args.length != 0){
@@ -30,6 +30,7 @@ public class Detesserati implements CommandExecutor {
             return true;
         }
         SQLControllerParties controller = new SQLControllerParties(plugin);
+        if(!controller.existTable()) return true;
         if(!controller.isPlayerInParty(player)){
             player.sendMessage(ColorAPI.color(plugin.getConfig().getString("detesserati.notInAParty")));
             return true;

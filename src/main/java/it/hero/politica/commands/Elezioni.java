@@ -67,7 +67,7 @@ public class Elezioni implements CommandExecutor {
             for(int i=0; i<lines.size(); i++)
                 textLine = holo.getLines().insertText(i, lines.get(i));
             plugin.getConfig().set("elezioni.data", true);
-            plugin.saveConfig();
+            plugin.saveDefaultConfig();
             controller.createTable();
         }else{
             if(!player.hasPermission("elezioni.termina")){
@@ -80,7 +80,7 @@ public class Elezioni implements CommandExecutor {
             }
             api.deleteHolograms();
             plugin.getConfig().set("elezioni.data", false);
-            plugin.saveConfig();
+            plugin.saveDefaultConfig();
             Bukkit.getOnlinePlayers()
                     .forEach(p -> plugin.getConfig().getStringList("elezioni.terminaBroadcast")
                             .forEach(m -> p.sendMessage(ColorAPI.color(m))));

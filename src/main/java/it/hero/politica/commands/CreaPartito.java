@@ -38,11 +38,6 @@ public class CreaPartito implements CommandExecutor {
             player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.electionStarted")));
             return true;
         }
-        if(controller.isPlayerInParty(player)){
-            player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.alreadyInParty"))
-                    .replace("%partito%", controller.getPlayerPartyName(player))));
-            return true;
-        }
         if(!(args[1].equalsIgnoreCase("blu") || args[1].equalsIgnoreCase("ciano") || args[1].equalsIgnoreCase("viola") ||
                 args[1].equalsIgnoreCase("verde") || args[1].equalsIgnoreCase("rosso") || args[1].equalsIgnoreCase("nero") ||
         args[1].equalsIgnoreCase("grigio") || args[1].equalsIgnoreCase("giallo"))){
@@ -60,11 +55,15 @@ public class CreaPartito implements CommandExecutor {
         }
         SQLControllerPartiesStorage partiesStorage = new SQLControllerPartiesStorage(plugin);
         partiesStorage.createTable();
-        if(controller.isPlayerInParty(leader) || partiesStorage.isOwner(player)){
+        if(controller.isPlayerInParty(leader)){
             player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.targetInParty")));
             return true;
         }
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user "+player.getName()+" permission set elezioni.partito.*");
+        if(controller.existParty(args[0])){
+            player.sendMessage(ColorAPI.color(plugin.getConfig().getString("partito.alreadyExistParty")));
+            return true;
+        }
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user "+leader.getName()+" permission set elezioni.partito.*");
         LinkedList<String> politicalPartiesName = new LinkedList<>(plugin.getConfig().getConfigurationSection("voti.gui.political-parties").getKeys(false));
         LinkedList<Integer> position = new LinkedList<>();
         politicalPartiesName.forEach(s -> {
@@ -98,10 +97,11 @@ public class CreaPartito implements CommandExecutor {
             plugin.getConfig().set("voti.gui.political-parties."+s+".lore", lore.get(x));
             ++x;
         }
-        plugin.saveConfig();
+        plugin.saveDefaultConfig();
         partiesStorage.insertValues(args[0], args[2], args[1], leader, 0);
         controller.insertPlayer(leader, args[0]);
         leader.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.created")).replace("%partito%", args[0])));
+        player.sendMessage(ColorAPI.color(Objects.requireNonNull(plugin.getConfig().getString("partito.created")).replace("%partito%", args[0])));
         return true;
     }
 }

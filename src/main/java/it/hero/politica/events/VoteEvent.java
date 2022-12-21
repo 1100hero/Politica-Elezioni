@@ -39,7 +39,7 @@ public class VoteEvent implements Listener {
                     .stream().map(s -> s.replace("%voti%", PlaceholderAPI.setPlaceholders((Player) event.getWhoClicked(), "%Politica_votes%"))).collect(Collectors.toList()));
             for(String s : politicalPartiesName){
                 if(plugin.getConfig().getInt("voti.gui.political-parties."+s+".position") == event.getSlot()){
-                    plugin.saveConfig();
+                    plugin.saveDefaultConfig();
                     plugin.reloadConfig();
                     event.getWhoClicked().sendMessage(ColorAPI.color(plugin.getConfig().getString("voti.voted")).replace("%partito%", s));
                     event.getInventory().close();
