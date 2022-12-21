@@ -152,6 +152,13 @@ partyList:
   headName: "&aPartito &e%partito%"
   lore:
     - "&aLeader &e%owner%"
+detesserati:
+  consoleInstance: "La console non puo' eseguire questo comando."
+  #- Permesso: 'elezioni.detesserati'
+  noPermission: "&cNon hai il permesso di eseguire questo comando."
+  notInAParty: "&cDevi essere in un partito per poter eseguire questo comando."
+  leaderBlock: "&cNon puoi eseguire questo comando essendo il leader del partito."
+  success: "&aTi sei detesserato con successo da &e%partito%"
 help:
   consoleInstance: "La console non puo' eseguire questo comando."
   wrongLength: "&cUtilizzo del comando sbagliato, usa /politicahelp per ottenere la lista dei comandi."

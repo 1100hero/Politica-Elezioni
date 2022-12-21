@@ -48,6 +48,7 @@ public final class Politica extends JavaPlugin {
         this.getCommand("politicahelp").setExecutor(new PoliticaHelp());
         this.getCommand("partylist").setExecutor(new PartyList());
         this.getCommand("politicahelpadmin").setExecutor(new PoliticaHelpAdmin());
+        this.getCommand("detesserati").setExecutor(new Detesserati());
     }
     private void registerEvents(){
         this.getServer().getPluginManager().registerEvents(new ClickedOnBlock(), this);
