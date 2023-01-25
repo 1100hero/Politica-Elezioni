@@ -33,32 +33,6 @@ public class ClickedOnBlock implements Listener {
             return;
         if(player.getInventory().getItemInMainHand().getItemMeta().getCustomModelData() != 161)
             return;
-        if(Objects.requireNonNull(player.getInventory().getItemInMainHand().getItemMeta().getLore())
-                .stream()
-                .noneMatch(s -> s.contains(player.getName())))
-            return;
-        Date date = new Date();
-        for(String s : player.getInventory().getItemInMainHand().getItemMeta().getLore()){
-            if(!s.contains("Scadenza:")) continue;
-            try{
-                date = new SimpleDateFormat("dd/MM/yyyy").parse(s.substring(15));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        if(new Date().compareTo(date) > 0) {
-            player.sendMessage(ColorAPI.color(plugin.getConfig().getString("voti.expiredID")));
-            return;
-        }
-        int utilizzi=-1;
-        for (String s : player.getInventory().getItemInMainHand().getItemMeta().getLore()){
-            if(!s.contains("Utilizzi:")) continue;
-            utilizzi = Integer.parseInt(String.valueOf(s.charAt(15)));
-        }
-        if(utilizzi == 0) {
-            player.sendMessage(ColorAPI.color(plugin.getConfig().getString("voti.expiredUtilizzi")));
-            return;
-        }
         if(!plugin.getConfig().getBoolean("elezioni.data")){
             player.sendMessage(ColorAPI.color(plugin.getConfig().getString("elezioni.notStarted")));
             return;

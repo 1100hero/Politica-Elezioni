@@ -1,8 +1,8 @@
 db:
-  username: "u150_P7JCD7MGc1"
-  password: "4Oagk3c@kkJ7@9fjrfx^7kiK"
-  database: "s150_Login"
-  host: "178.218.144.227"
+  username: "username"
+  password: "password"
+  database: "database"
+  host: "host"
   port: 3306
 elezioni:
   consoleInstance: "La console non puo' eseguire questo comando."
